@@ -6,7 +6,7 @@ int paddleXR, paddleYR; //This will set the Right paddle size.
 boolean upL, downL, upR, downR; //This values are in TRUE or FALSE to know the key pressed or not.
 int scoreL=0; // This will set the score for left player.
 int scoreR=0; // This will set the score for right player.
-int winScore=1; //This value is the winning score means player getting this value first will WIN :)
+int winScore=3; //This value is the winning score means player getting this value first will WIN :)
 color colorL=color(37, 179, 75);
 color colorR=color(100,40,10);
 int countdown = 30;
@@ -125,11 +125,11 @@ if(x-w/2<paddleXL+paddleW/2 && y-h/2 < paddleYL+paddleH/2 && y+h/2 > paddleYL-pa
  fill(250,0,0);
  text(scoreL,100,40);
  text(scoreR,width-100,40);
- text("Time",countdown,100,50);
+ 
  }
  
  void gameOver(){
- countdown = countdown - (millis()/1000);
+ //countdown = countdown - (millis()/1000);
  if(scoreL == winScore){
  gameOverPage("Player 1 wins",colorL,countdown);
  }
