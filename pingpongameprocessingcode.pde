@@ -6,13 +6,14 @@ int paddleXR, paddleYR; //This will set the Right paddle size.
 boolean upL, downL, upR, downR; //This values are in TRUE or FALSE to know the key pressed or not.
 int scoreL=0; // This will set the score for left player.
 int scoreR=0; // This will set the score for right player.
-int winScore=4; //This value is the winning score means player getting this value first will WIN :)
+int winScore=1; //This value is the winning score means player getting this value first will WIN :)
 color colorL=color(37, 179, 75);
 color colorR=color(100,40,10);
-PImage bg;
+int countdown = 30;
+//PImage bg;
 void setup(){
   myPort = new Serial(this, Serial.list()[1], 9600);
-  size(600,600);
+  fullScreen(); // make size of screen full
   textSize(30);
   textAlign(CENTER,CENTER);
   rectMode(CENTER);
@@ -29,12 +30,12 @@ void setup(){
   w=50; //Size of ball h and W to be eaqual for circle otherwise it will be an ellipse.
   speedX=2;
   speedY=3;
-  bg = loadImage("bg.png");
+  
 }
 
 void draw(){
  
- background(bg);
+ background(#FFFF00); // co
  
  if(myPort.available()>0){
   val = myPort.read(); 
@@ -124,38 +125,43 @@ if(x-w/2<paddleXL+paddleW/2 && y-h/2 < paddleYL+paddleH/2 && y+h/2 > paddleYL-pa
  fill(250,0,0);
  text(scoreL,100,40);
  text(scoreR,width-100,40);
+ text("Time",countdown,100,50);
  }
  
  void gameOver(){
- if(scoreL == winScore){ // if scoreL is equeal to winScore while scoreR is not
- gameOverPage("Player 1 wins",colorL); // display this text
+ countdown = countdown - (millis()/1000);
+ if(scoreL == winScore){
+ gameOverPage("Player 1 wins",colorL,countdown);
  }
- if(scoreR == winScore){ // if scoreR is equeal to winScore while scoreL is not
- gameOverPage("Player 2 wins",colorR);
+ if(scoreR == winScore){
+ gameOverPage("Player 2 wins",colorR,countdown);
  }
  }
  
- void gameOverPage(String msg, color c){ // function for finsihing game when the game is over
+ void gameOverPage(String msg, color c, int countdown){
+ 
  speedX=0;
  speedY=0;
  text("GAME OVER",width/2,height/3-40);
  text("CLICK TO RESTART",width/2,height/3-80);
  text(msg,width/2,height/3);
- if(mousePressed){ 
- scoreR=0; 
- scoreL=0; 
+ 
+ if(keyPressed){
+ scoreR=0;
+ scoreL=0;
  speedX=2;
  speedY=3;
  }
  }
  
- void reStart(){ // reset the values of the variables for whole new game
+ void reStart(){
  x=width/2;
  y=height/2;
  h=50;
  w=50;
  speedX=2;
  speedY=3;
+ countdown = 30;
  }
  
  
