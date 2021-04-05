@@ -127,29 +127,29 @@ if(x-w/2<paddleXL+paddleW/2 && y-h/2 < paddleYL+paddleH/2 && y+h/2 > paddleYL-pa
  }
  
  void gameOver(){
- if(scoreL == winScore){
- gameOverPage("Player 1 wins",colorL);
+ if(scoreL == winScore){ // if scoreL is equeal to winScore while scoreR is not
+ gameOverPage("Player 1 wins",colorL); // display this text
  }
- if(scoreR == winScore){
+ if(scoreR == winScore){ // if scoreR is equeal to winScore while scoreL is not
  gameOverPage("Player 2 wins",colorR);
  }
  }
  
- void gameOverPage(String msg, color c){
+ void gameOverPage(String msg, color c){ // function for finsihing game when the game is over
  speedX=0;
  speedY=0;
  text("GAME OVER",width/2,height/3-40);
  text("CLICK TO RESTART",width/2,height/3-80);
  text(msg,width/2,height/3);
- if(mousePressed){
- scoreR=0;
- scoreL=0;
+ if(mousePressed){ 
+ scoreR=0; 
+ scoreL=0; 
  speedX=2;
  speedY=3;
  }
  }
  
- void reStart(){
+ void reStart(){ // reset the values of the variables for whole new game
  x=width/2;
  y=height/2;
  h=50;
